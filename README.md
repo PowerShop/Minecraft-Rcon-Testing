@@ -8,4 +8,4 @@ Make with Node.js 🚀
 - Run testing by executing the command:
   ```bash
   node app.js
-  ``` ▶️
+  ```
