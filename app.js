@@ -1,24 +1,23 @@
-// Rcon for testing via minimal app
+const Rcon = require('rcon');
 
-var Rcon = require('rcon');
+async function testRcon() {
+  const conn = new Rcon('your_ip', 25575, 'your_password');
+  
+  try {
+    await conn.connect();
 
-var conn = new Rcon('your_ip', 25575, 'your_password');
-
-conn.on('auth', function () {
     // Wait until authed before sending any commands
-
     console.log("Authenticated"); // Authenticated successfully
-    console.log("Sending command: help") 
-    conn.send("help"); // Send test command help
-}).on('response', function (str) {
-    console.log("Response: " + str);
-}).on('error', function (err) {
-    console.log("Error: " + err);
-}).on('end', function () {
+
+    console.log("Sending command: help");
+    const response = await conn.send("help"); // Send test command help
+    console.log(`Response: ${response}`);
+  } catch(err) {
+    console.log(`Error: ${err}`);
+  } finally {
     console.log("Connection closed");
     process.exit();
-});
+  }
+}
 
-conn.connect();
-
-// connect() will return immediately... maybe na kub
+testRcon(); // Call the function
